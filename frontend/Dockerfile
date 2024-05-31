@@ -20,7 +20,7 @@ RUN pipenv install --deploy --ignore-pipfile
 COPY . .
 
 # Exponer el puerto en el que la aplicación correrá
-EXPOSE 5002
+EXPOSE 5000
 
 # Comando por defecto para correr la aplicación
 CMD ["pipenv", "run", "python", "app.py"]

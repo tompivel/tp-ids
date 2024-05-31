@@ -33,9 +33,9 @@ def obtener_datos_ejemplo():
     # Devolver los resultados como respuesta JSON
     return jsonify(resultados)
 
-@app.route('/home')
+@app.route('/')
 def hello_world():
-    return '<h2> Welcome to the backend </h2>'
+    return '<h2> Welcome to the backend </h2> <a href="/datos_ejemplo"> <button> Ver Prueba </button> </a>'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
