@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./init-db
+    image: mysql:8.0.37-debian
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: hospedaje_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./backend:/app
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_ENV: development
+      DATABASE_URL: mysql+pymysql://user:password@db/hospedaje_db
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_ENV: development
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
