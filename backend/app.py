@@ -19,6 +19,14 @@ class Cabañas(db.Model):
     descripcion = db.Column(db.Text)
     imagen = db.Column(db.Text)
 
+class Habitaciones(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cabaña_id = db.Column(db.Integer, db.ForeignKey('cabañas.id'))
+    nombre = db.Column(db.String(255), nullable=False)
+    descripcion = db.Column(db.Text)
+    precio = db.Column(db.Numeric(10,2))
+    imagen = db.Column(db.Text)
+
 @app.route('/datos_ejemplo')
 def obtener_datos_ejemplo():
     # Consultar todos los registros de la tabla de ejemplo
@@ -54,6 +62,24 @@ def get_all_cabins():
             'nombre': cabaña.nombre,
             'descripcion': cabaña.descripcion,
             'imagen': cabaña.imagen
+        }
+        results.append(result)
+
+    return jsonify(results)
+
+@app.route('/habitaciones')
+def get_all_rooms():
+    habitaciones = Habitaciones.query.all()
+
+    results = []
+    for habitacion in habitaciones:
+        result = {
+            'id': habitacion.id,
+            'cabaña_id': habitacion.cabaña_id,
+            'nombre': habitacion.nombre,
+            'descripcion': habitacion.descripcion,
+            'precio': str(habitacion.precio),
+            'imagen': habitacion.imagen
         }
         results.append(result)
 
