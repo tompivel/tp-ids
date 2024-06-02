@@ -67,8 +67,24 @@ def get_all_cabins():
 
     return jsonify(results)
 
+@app.route('/cabañas/<int:id>')
+def get_cabin(id):
+    cabaña = Cabañas.query.get(id)
+
+    if cabaña is None:
+        return jsonify({'error': 'La cabaña no se ha encontrado'}), 404
+
+    result = {
+        'id': cabaña.id,
+        'nombre': cabaña.nombre,
+        'descripcion': cabaña.descripcion,
+        'imagen': cabaña.imagen
+    }
+
+    return jsonify(result)
+
 @app.route('/habitaciones')
-def get_all_rooms():
+def get_rooms():
     cabaña_id = request.args.get('cabaña_id', default=None, type=int)
     min_precio = request.args.get('min_precio', default=None, type=float)
     max_precio = request.args.get('max_precio', default=None, type=float)
@@ -99,6 +115,24 @@ def get_all_rooms():
         results.append(result)
 
     return jsonify(results)
+
+@app.route('/cabañas/<int:id>')
+def get_room(id):
+    habitacion = Habitaciones.query.get(id)
+
+    if habitacion is None:
+        return jsonify({'error': 'La habitacion no se ha encontrado'}), 404
+
+    result = {
+        'id': habitacion.id,
+        'cabaña_id': habitacion.cabaña_id,
+        'nombre': habitacion.nombre,
+        'descripcion': habitacion.descripcion,
+        'precio': str(habitacion.precio),
+        'imagen': habitacion.imagen
+    }
+
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
