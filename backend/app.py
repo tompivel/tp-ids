@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -69,7 +69,22 @@ def get_all_cabins():
 
 @app.route('/habitaciones')
 def get_all_rooms():
-    habitaciones = Habitaciones.query.all()
+    cabaña_id = request.args.get('cabaña_id', default=None, type=int)
+    min_precio = request.args.get('min_precio', default=None, type=float)
+    max_precio = request.args.get('max_precio', default=None, type=float)
+
+    query = Habitaciones.query
+
+    if cabaña_id is not None:
+        query = query.filter(Habitaciones.cabaña_id == cabaña_id)
+
+    if min_precio is not None:
+        query = query.filter(Habitaciones.precio >= min_precio)
+
+    if max_precio is not None:
+        query = query.filter(Habitaciones.precio <= max_precio)
+
+    habitaciones = query.all()
 
     results = []
     for habitacion in habitaciones:
