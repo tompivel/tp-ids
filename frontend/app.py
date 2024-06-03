@@ -10,7 +10,7 @@ def index():
 @app.route('/prueba')
 def prueba():
 # Hacer la solicitud GET a la API del backend para obtener los datos
-    response = requests.get('http://backend:5001/datos_ejemplo')
+    response = requests.get('http://backend:5001/habitaciones')
     # Si la solicitud es exitosa, obtener los datos en formato JSON
     if response.status_code == 200:
         datos = response.json()
