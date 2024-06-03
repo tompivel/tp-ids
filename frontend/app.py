@@ -21,5 +21,14 @@ def habitaciones():
         # Si la solicitud falla, mostrar un mensaje de error
         return "Error al obtener los datos del backend"
 
+@app.route('/habitacion/<int:id>')
+def habitacion(id):
+    response = requests.get(f'http://backend:5001/habitaciones/{id}')
+    if response.status_code == 200:
+        habitacion = response.json()
+        return render_template('habitacion.html', habitacion=habitacion)
+    else:
+        return "Error al obtener los datos del backend"
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
