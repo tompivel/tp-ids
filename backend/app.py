@@ -8,7 +8,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-class Cabañas(db.Model):
+class Cabins(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(255))
     descripcion = db.Column(db.Text)
@@ -16,54 +16,54 @@ class Cabañas(db.Model):
 
 class Habitaciones(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    cabaña_id = db.Column(db.Integer, db.ForeignKey('cabañas.id'))
+    cabin_id = db.Column(db.Integer, db.ForeignKey('cabins.id'))
     nombre = db.Column(db.String(255), nullable=False)
     descripcion = db.Column(db.Text)
     precio = db.Column(db.Numeric(10,2))
     imagen = db.Column(db.Text)
 
-@app.route('/cabañas')
+@app.route('/cabins')
 def get_all_cabins():
-    cabañas = Cabañas.query.all()
+    cabins = Cabins.query.all()
 
     results = []
-    for cabaña in cabañas:
+    for cabin in cabins:
         result = {
-            'id': cabaña.id,
-            'nombre': cabaña.nombre,
-            'descripcion': cabaña.descripcion,
-            'imagen': cabaña.imagen
+            'id': cabin.id,
+            'nombre': cabin.nombre,
+            'descripcion': cabin.descripcion,
+            'imagen': cabin.imagen
         }
         results.append(result)
 
     return jsonify(results)
 
-@app.route('/cabañas/<int:id>')
+@app.route('/cabins/<int:id>')
 def get_cabin(id):
-    cabaña = Cabañas.query.get(id)
+    cabin = Cabins.query.get(id)
 
-    if cabaña is None:
+    if cabin is None:
         return jsonify({'error': 'La cabaña no se ha encontrado'}), 404
 
     result = {
-        'id': cabaña.id,
-        'nombre': cabaña.nombre,
-        'descripcion': cabaña.descripcion,
-        'imagen': cabaña.imagen
+        'id': cabin.id,
+        'nombre': cabin.nombre,
+        'descripcion': cabin.descripcion,
+        'imagen': cabin.imagen
     }
 
     return jsonify(result)
 
 @app.route('/habitaciones')
 def get_rooms():
-    cabaña_id = request.args.get('cabaña_id', default=None, type=int)
+    cabin_id = request.args.get('cabin_id', default=None, type=int)
     min_precio = request.args.get('min_precio', default=None, type=float)
     max_precio = request.args.get('max_precio', default=None, type=float)
 
     query = Habitaciones.query
 
-    if cabaña_id is not None:
-        query = query.filter(Habitaciones.cabaña_id == cabaña_id)
+    if cabin_id is not None:
+        query = query.filter(Habitaciones.cabin_id == cabin_id)
 
     if min_precio is not None:
         query = query.filter(Habitaciones.precio >= min_precio)
@@ -77,7 +77,7 @@ def get_rooms():
     for habitacion in habitaciones:
         result = {
             'id': habitacion.id,
-            'cabaña_id': habitacion.cabaña_id,
+            'cabin_id': habitacion.cabin_id,
             'nombre': habitacion.nombre,
             'descripcion': habitacion.descripcion,
             'precio': str(habitacion.precio),
@@ -87,7 +87,7 @@ def get_rooms():
 
     return jsonify(results)
 
-@app.route('/cabañas/<int:id>')
+@app.route('/habitaciones/<int:id>')
 def get_room(id):
     habitacion = Habitaciones.query.get(id)
 
@@ -96,7 +96,7 @@ def get_room(id):
 
     result = {
         'id': habitacion.id,
-        'cabaña_id': habitacion.cabaña_id,
+        'cabin_id': habitacion.cabin_id,
         'nombre': habitacion.nombre,
         'descripcion': habitacion.descripcion,
         'precio': str(habitacion.precio),
