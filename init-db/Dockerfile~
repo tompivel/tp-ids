@@ -1,4 +1,0 @@
-FROM mysql:5.7
-
-# Copiar el script SQL al directorio de inicialización de la base de datos
-COPY init.sql /docker-entrypoint-initdb.d/
