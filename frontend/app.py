@@ -16,9 +16,18 @@ def cabins():
     if response.status_code == 200:
         cabins= response.json()
         # Renderizar la plantilla HTML con los datos obtenidos
-        return render_template('cabins.html', datos=cabins)
+        return render_template('cabins.html', cabins=cabins)
     else:
         # Si la solicitud falla, mostrar un mensaje de error
+        return "Error al obtener los datos del backend"
+
+@app.route('/cabin/<int:id>')
+def cabin(id):
+    response = requests.get(f'http://backend:5001/cabins/{id}')
+    if response.status_code == 200:
+        cabin = response.json()
+        return render_template('cabin.html', cabin=cabin)
+    else:
         return "Error al obtener los datos del backend"
 
 @app.route('/habitaciones')
