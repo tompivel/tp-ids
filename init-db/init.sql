@@ -1,5 +1,6 @@
 -- Configurar la base de datos para usar utf8mb4
 ALTER DATABASE hospedaje_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE hospedaje_db;
 
 CREATE TABLE IF NOT EXISTS cabins(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -7,6 +8,7 @@ CREATE TABLE IF NOT EXISTS cabins(
     descripcion TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
     imagen TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 );
+
 
 CREATE TABLE IF NOT EXISTS habitaciones(
     id INT AUTO_INCREMENT PRIMARY KEY,
