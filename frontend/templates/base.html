@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <nav class="fh5co-nav" role="navigation">
+        <div class="logo"><a href="{{ url_for('index') }}">Nombre de la página</a></div>
+        <div class="secciones">
+            <ul> <!--Cambiar las rutas del navbar-->
+                <li><a href="{{ url_for('index') }}">Menú</a></li>
+                <li>
+                    <a href="{{ url_for('habitaciones') }}">Habitaciones</a>
+                    <ul class="habitaciones">
+                        <li><a href="{{ url_for('index') }}">Habitacion 1</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 2</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 3</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 4</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 5</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 6</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 7</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 8</a></li>
+                        <li><a href="{{ url_for('index') }}">Habitacion 9</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('index') }}">Contacto</a></li>
+                <li><a href="{{ url_for('index') }}">Reservar</a></li>
+            </ul>
+        </div>
+    </nav>
+    {% block head %}
+    
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+
+    {% endblock %}
+</body>
+<footer>
+    
+</footer>
+</html>
