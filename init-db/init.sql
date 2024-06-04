@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS cabins(
     imagen TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 );
 
+
 CREATE TABLE IF NOT EXISTS habitaciones(
     id INT AUTO_INCREMENT PRIMARY KEY,
     cabin_id INT,
