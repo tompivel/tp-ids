@@ -2,10 +2,40 @@
 <html>
     <head>
         <title>DEV - Reservar Cabaña</title>
-        <link rel=stylesheet href="{{url_for('static',filename='css/style.css')}}">
+        <link rel=stylesheet href="{{url_for('static',filename='css/style1.css')}}">
     </head>
     <body>
-        PAGINA DE RESERVAS
-        <a href="{{url_for('index')}}"><button>Volver a HOME</button></a>
+        <header>
+            <h1>PAGINA DE RESERVAS</h1>
+        </header>
+        <section class="cabaña">
+            <a href="{{url_for('index')}}"><button class="btn-1">Volver a HOME</button></a>
+            <label for="selec_cabana"></label>
+            <select name="cabana" id="selec_cabana">
+                <option value="Cabana 1">Cabaña 1</option>
+                <option value="Cabana 2">Cabaña 2</option>
+                <option value="Cabana 3">Cabaña 3</option>
+            </select>
+            <form>
+                <ul>
+                    <label>Nombre: </label>
+                    <input type="text" name="fnombre" id="campo" placeholder="Escriba su nombre aquí"><br>
+                    <label>Apellido: </label>
+                    <input type="text" name="fapellido" id="campo" placeholder="Escriba su apellido aquí"><br>
+                    <label>Documento: </label>
+                    <input type="text" name="fdni" id="campo" placeholder="Escriba su documento aquí"><br>
+                    <label>Celular: </label>
+                    <input type="text" name="fcelular" id="campo" placeholder="Escriba su número aquí"><br>
+                    <label>Direccion: </label>
+                    <input type="text" name="fdirec" id="campo" placeholder="Escriba su direccion aquí"><br>
+                </ul>
+                
+            </form>
+        </section>
+       
+        <label for="calendario">Fecha de Entrada:</label>
+        <input type="date" id="calendario"  class="form-control"><br>
+        <label for="calendario">Fecha de Salida:</label>
+        <input type="date" id="calendario" class="form-control">
     </body>
 </html>
