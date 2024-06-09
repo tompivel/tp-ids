@@ -20,6 +20,15 @@ CREATE TABLE IF NOT EXISTS habitaciones(
     FOREIGN KEY (cabin_id) REFERENCES cabins(id)
 );
 
+CREATE TABLE IF NOT EXISTS reservas(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cabin_id INT,
+    nombre VARCHAR(255) NOT NULL,
+    fecha_ingreso DATE,
+    fecha_salida DATE,
+    FOREIGN KEY (cabin_id) REFERENCES cabins(id)
+);
+
 -- Asegurar de que las tablas existentes usen utf8mb4
 ALTER DATABASE hospedaje_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE habitaciones CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
