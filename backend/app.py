@@ -132,5 +132,18 @@ def get_reserva(id):
         return jsonify({'error': 'Reserva not found'}), 404
     return jsonify({'id': reserva.id, 'cabin_id': reserva.cabin_id, 'nombre': reserva.nombre, 'fecha_ingreso': str(reserva.fecha_ingreso), 'fecha_salida': str(reserva.fecha_salida)})
 
+@app.route('/reservas/<int:id>', methods=['PUT'])
+def update_reserva(id):
+    data = request.get_json()
+    reserva = Reservas.query.get(id)
+    if reserva is None:
+        return jsonify({'error': 'Reserva not found'}), 404
+    reserva.cabin_id = data['cabin_id']
+    reserva.nombre = data['nombre']
+    reserva.fecha_ingreso = data['fecha_ingreso']
+    reserva.fecha_salida = data['fecha_salida']
+    db.session.commit()
+    return jsonify({'message': 'Reserva updated'})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
