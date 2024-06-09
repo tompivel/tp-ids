@@ -145,34 +145,26 @@ def update_cabin():
             return jsonify({"error": "No JSON data found"}), 400
 
         nombre = data['nombre']
-        modificarCampo =  data['modificarCampo']
-        modificarValor = data['modificarValor']
+        modificarCampos =  data['modificarCampos']
+        modificarValores = data['modificarValores']
         cabin = Cabins.query.filter_by(nombre=nombre).first()
-
+        
         if cabin is None:
             return jsonify({"error": "Cabaña no encontrada"}), 404
-
-        if(modificarCampo == 'nombre'):
-            cabin.nombre = modificarValor
-            message1 = "Nombre de cabaña actualizado con éxito"
-            message2 = "Nuevo nombre de la cabaña"
-        elif(modificarCampo == 'descripcion'):
-            cabin.descripcion = modificarValor
-            message1 = "Descripción de cabaña actualizado con éxito"
-            message2 = "Nueva descripción de la cabaña"
-        elif(modificarCampo == 'precio'):
-            cabin.precio = modificarValor
-            message1 = "Precio de cabaña actualizado con éxito"
-            message2 = "Nuevo precio de la cabaña"
-        elif(modificarCampo == 'imagen'):
-            cabin.imagen = modificarValor
-            message1 = "Imagen de cabaña actualizado con éxito"
-            message2 = "Nueva imagen de la cabaña"
-        else:
-            return jsonify({"error": "Campo no valido"}), 400
+        for index, campo in enumerate(modificarCampos):
+            if(campo == 'nombre'):
+                cabin.nombre = modificarValores[index]
+            elif(campo == 'descripcion'):
+                cabin.descripcion = modificarValores[index]
+            elif(campo == 'precio'):
+                cabin.precio = modificarValores[index]
+            elif(campo == 'imagen'):
+                cabin.imagen = modificarValores[index]
+            else:
+                return jsonify({"error": "Campo no valido"}), 400
 
         db.session.commit()
-        return jsonify({"message": message1,"Cabaña modificada": nombre ,message2: modificarValor}), 200
+        return jsonify({"message": "Parámetros actualizados con éxito","Cabaña modificada": nombre, "Parámetros_actualizados": modificarCampos, "Nuevos parámetros": modificarValores}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
