@@ -145,5 +145,14 @@ def update_reserva(id):
     db.session.commit()
     return jsonify({'message': 'Reserva updated'})
 
+@app.route('/reservas/<int:id>', methods=['DELETE'])
+def delete_reserva(id):
+    reserva = Reservas.query.get(id)
+    if reserva is None:
+        return jsonify({'error': 'Reserva not found'}), 404
+    db.session.delete(reserva)
+    db.session.commit()
+    return jsonify({'message': 'Reserva deleted'})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
