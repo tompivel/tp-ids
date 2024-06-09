@@ -22,6 +22,13 @@ class Habitaciones(db.Model):
     precio = db.Column(db.Numeric(10,2))
     imagen = db.Column(db.Text)
 
+class Reservas(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cabin_id = db.Column(db.Integer, db.ForeignKey('cabins.id'))
+    nombre = db.Column(db.String(255), nullable=False)
+    fecha_ingreso = db.Column(db.Date)
+    fecha_salida = db.Column(db.Date)
+
 @app.after_request
 def after_request(response):
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
@@ -109,6 +116,14 @@ def get_room(id):
     }
 
     return jsonify(result)
+
+@app.route('/reservas', methods=['POST'])
+def create_reserva():
+    data = request.get_json()
+    reserva = Reservas(cabin_id=data['cabin_id'], nombre=data['nombre'], fecha_ingreso=data['fecha_ingreso'], fecha_salida=data['fecha_salida'])
+    db.session.add(reserva)
+    db.session.commit()
+    return jsonify({'message': 'Reserva created'}), 201
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
