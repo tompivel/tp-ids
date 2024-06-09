@@ -125,5 +125,12 @@ def create_reserva():
     db.session.commit()
     return jsonify({'message': 'Reserva created'}), 201
 
+@app.route('/reservas/<int:id>', methods=['GET'])
+def get_reserva(id):
+    reserva = Reservas.query.get(id)
+    if reserva is None:
+        return jsonify({'error': 'Reserva not found'}), 404
+    return jsonify({'id': reserva.id, 'cabin_id': reserva.cabin_id, 'nombre': reserva.nombre, 'fecha_ingreso': str(reserva.fecha_ingreso), 'fecha_salida': str(reserva.fecha_salida)})
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
