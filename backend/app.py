@@ -136,5 +136,46 @@ def delete_cabin():
         return jsonify({"message": "Cabaña eliminada con éxito", "Nombre de cabaña": nombre}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/update_cabin', methods=['PUT'])
+def update_cabin():
+    try:
+        data = request.json
+        if data is None:
+            return jsonify({"error": "No JSON data found"}), 400
+
+        nombre = data['nombre']
+        modificarCampo =  data['modificarCampo']
+        modificarValor = data['modificarValor']
+        cabin = Cabins.query.filter_by(nombre=nombre).first()
+
+        if cabin is None:
+            return jsonify({"error": "Cabaña no encontrada"}), 404
+
+        if(modificarCampo == 'nombre'):
+            cabin.nombre = modificarValor
+            message1 = "Nombre de cabaña actualizado con éxito"
+            message2 = "Nuevo nombre de la cabaña"
+        elif(modificarCampo == 'descripcion'):
+            cabin.descripcion = modificarValor
+            message1 = "Descripción de cabaña actualizado con éxito"
+            message2 = "Nueva descripción de la cabaña"
+        elif(modificarCampo == 'precio'):
+            cabin.precio = modificarValor
+            message1 = "Precio de cabaña actualizado con éxito"
+            message2 = "Nuevo precio de la cabaña"
+        elif(modificarCampo == 'imagen'):
+            cabin.imagen = modificarValor
+            message1 = "Imagen de cabaña actualizado con éxito"
+            message2 = "Nueva imagen de la cabaña"
+        else:
+            return jsonify({"error": "Campo no valido"}), 400
+
+        db.session.commit()
+        return jsonify({"message": message1,"Cabaña modificada": nombre ,message2: modificarValor}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
