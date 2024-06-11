@@ -28,6 +28,10 @@ body {
     align-items: center; 
 }
 
+#titulo_reservas{
+    min-height: 30vh;
+}
+
 
 .header-content {
     text-align: center;
@@ -258,3 +262,42 @@ p {
 
     
 }
+select.form-select{
+    display: flex;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#titulo_selec{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: 200px;
+    color: red;
+    font-size: large
+}
+section.cabaña#reservar{
+    height: 300px;
+    padding-top: 15px;
+}
+#calendario{
+    display: flex;
+    width: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+#titulo-campo{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+
+
+
