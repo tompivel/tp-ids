@@ -139,11 +139,16 @@ def update_reserva(id):
     reserva = Reservas.query.get(id)
     if reserva is None:
         return jsonify({'error': 'Reserva not found'}), 404
-    reserva.cabin_id = data['cabin_id']
-    reserva.nombre = data['nombre']
-    reserva.cantidad_personas = data['cantidad_personas']
-    reserva.fecha_ingreso = data['fecha_ingreso']
-    reserva.fecha_salida = data['fecha_salida']
+    if 'cabin_id' in data:
+        reserva.cabin_id = data['cabin_id']
+    if 'nombre' in data:
+        reserva.nombre = data['nombre']
+    if 'cantidad_personas' in data:
+        reserva.cantidad_personas = data['cantidad_personas']
+    if 'fecha_ingreso' in data:
+        reserva.fecha_ingreso = data['fecha_ingreso']
+    if 'fecha_salida' in data:
+        reserva.fecha_salida = data['fecha_salida']
     db.session.commit()
     return jsonify({'message': 'Reserva updated'})
 
