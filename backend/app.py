@@ -18,6 +18,7 @@ class Cabins(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     #cabin_id = db.Column(db.Integer, db.ForeignKey('cabins.id'))
     nombre = db.Column(db.String(255), nullable=False)
+    capacidad = db.Column(db.Integer)
     descripcion = db.Column(db.Text)
     precio = db.Column(db.Numeric(10,2))
     imagen = db.Column(db.Text)
@@ -80,6 +81,7 @@ def get_cabins():
             'id': cabin.id,
             # 'cabin_id': cabin.cabin_id,
             'nombre': cabin.nombre,
+            'capacidad': cabin.capacidad,
             'descripcion': cabin.descripcion,
             'precio': str(cabin.precio),
             'imagen': cabin.imagen
@@ -98,6 +100,7 @@ def get_room(id):
     result = {
         'id': cabin.id,
         'nombre': cabin.nombre,
+        'capacidad': cabin.capacidad,
         'descripcion': cabin.descripcion,
         'precio': str(cabin.precio),
         'imagen': cabin.imagen
@@ -113,6 +116,7 @@ def create_cabin():
                 return jsonify({"error": "No JSON data found"}), 400
         cabin = Cabins()
         cabin.nombre = dataCabin['nombre']
+        cabin.capacidad=dataCabin['capacidad']
         cabin.descripcion = dataCabin['descripcion']
         cabin.precio = dataCabin['precio']
         cabin.imagen = dataCabin['imagen']
@@ -154,6 +158,8 @@ def update_cabin():
         for index, campo in enumerate(modificarCampos):
             if(campo == 'nombre'):
                 cabin.nombre = modificarValores[index]
+            elif(campo == 'capacidad'):
+                cabin.capacidad = modificarValores[index]
             elif(campo == 'descripcion'):
                 cabin.descripcion = modificarValores[index]
             elif(campo == 'precio'):
