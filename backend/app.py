@@ -26,6 +26,7 @@ class Reservas(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cabin_id = db.Column(db.Integer, db.ForeignKey('cabins.id'))
     nombre = db.Column(db.String(255), nullable=False)
+    cantidad_personas = db.Column(db.Integer)
     fecha_ingreso = db.Column(db.Date)
     fecha_salida = db.Column(db.Date)
 
@@ -120,7 +121,7 @@ def get_room(id):
 @app.route('/reservas', methods=['POST'])
 def create_reserva():
     data = request.get_json()
-    reserva = Reservas(cabin_id=data['cabin_id'], nombre=data['nombre'], fecha_ingreso=data['fecha_ingreso'], fecha_salida=data['fecha_salida'])
+    reserva = Reservas(cabin_id=data['cabin_id'], nombre=data['nombre'], cantidad_personas=data['cantidad_personas'], fecha_ingreso=data['fecha_ingreso'], fecha_salida=data['fecha_salida'])
     db.session.add(reserva)
     db.session.commit()
     return jsonify({'message': 'Reserva created'}), 201
@@ -130,7 +131,7 @@ def get_reserva(id):
     reserva = Reservas.query.get(id)
     if reserva is None:
         return jsonify({'error': 'Reserva not found'}), 404
-    return jsonify({'id': reserva.id, 'cabin_id': reserva.cabin_id, 'nombre': reserva.nombre, 'fecha_ingreso': str(reserva.fecha_ingreso), 'fecha_salida': str(reserva.fecha_salida)})
+    return jsonify({'id': reserva.id, 'cabin_id': reserva.cabin_id, 'nombre': reserva.nombre, 'cantidad_personas': reserva.cantidad_personas, 'fecha_ingreso': str(reserva.fecha_ingreso), 'fecha_salida': str(reserva.fecha_salida)})
 
 @app.route('/reservas/<int:id>', methods=['PUT'])
 def update_reserva(id):
@@ -140,6 +141,7 @@ def update_reserva(id):
         return jsonify({'error': 'Reserva not found'}), 404
     reserva.cabin_id = data['cabin_id']
     reserva.nombre = data['nombre']
+    reserva.cantidad_personas = data['cantidad_personas']
     reserva.fecha_ingreso = data['fecha_ingreso']
     reserva.fecha_salida = data['fecha_salida']
     db.session.commit()

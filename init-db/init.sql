@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS reservas(
     id INT AUTO_INCREMENT PRIMARY KEY,
     cabin_id INT,
     nombre VARCHAR(255) NOT NULL,
+    cantidad_personas INT,
     fecha_ingreso DATE,
     fecha_salida DATE,
     FOREIGN KEY (cabin_id) REFERENCES cabins(id)
