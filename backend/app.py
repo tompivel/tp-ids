@@ -264,9 +264,11 @@ def filter_search():
     resultado = [
         {
             'id': cabin.id,
-            'capacidad': cabin.capacidad,
             'nombre': cabin.nombre,
-            'descripcion': cabin.descripcion
+            'capacidad': cabin.capacidad,
+            'descripcion': cabin.descripcion,
+            'precio': cabin.precio,
+            'imagen': cabin.imagen
         } for cabin in available_cabins
     ]
 
