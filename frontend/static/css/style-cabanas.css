@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.7)),
+        url(images/cab.jpg) center bottom no-repeat;
+    background-size: cover;
+    min-height: 80vh;
+    display: flex;
+    align-items: center; 
+}
+
+
+.header-content {
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: 75px;
+    line-height: 80px;
+    color: #F9FAFC;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+
+}
+
+.header-content p {
+    font-size: 16px;
+    color: #C5C5C5;
+    padding: 0 250px;
+    margin-bottom: 25px;
+}
+
+.btn-1 {
+    display: inline-block;
+    padding: 11px 35px;
+    background-color: #CE9678;
+    color: #F9FAFC;
+    text-transform: uppercase;
+
+}
+.btn-1:hover {
+    background-color: #ebad8d;
+}
+
+.cabaña {
+    padding: 100px 0;
+    background-color: #E1E2E6;
+    position: relative;
+}
+
+.cabaña-content {
+    text-align: center;
+}
+
+.cabaña-content h2 {
+    font-size: 55px;
+    line-height: 70px;
+    color: #323337;
+    text-transform: uppercase;
+    padding: 0 250px;
+    margin-bottom: 15px;
+}
+
+.txt-p {
+    font-size: 16px;
+    color: #414247;
+    padding: 0 250px;
+    margin-bottom: 35px;
+}
+
+.cabaña-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+
+}
+
+.cabaña-1 {
+    padding: 0 25px;
+}
+
+.cabaña-1 img {
+    width: 200px;
+}
+
+.cabaña-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+
+.cabaña-1 h3 {
+    color: #323337;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.services {
+    background-image: linear-gradient(
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.7)),
+        url(images/Servicio.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 100px 0;
+
+}
+
+.services-content {
+    text-align: center;
+
+}
+
+.services-content h2 {
+    font-size: 55px;
+    line-height: 70px;
+    color: #F9FAFC;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+
+}
+
+.services-content p {
+    font-size: 16px;
+    color:  #C5C5C5;
+    margin-bottom: 50px;
+    padding: 0 100px;
+
+}
+
+.services-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.services-1 {
+    padding: 0 100px;
+
+}
+
+.services-1 img {
+    width: 35px;
+    margin-bottom: 15px;
+
+}
+
+.services-1 h3 {
+    color: #EACCB3;
+    font-size: 18px;
+}
+
+.general {
+    display: flex;
+
+}
+
+.general-1 {
+    width: 50%;
+    padding: 100px 250px 100px 100px;
+    background-color: #E1E2E6;
+}
+
+.general-2 {
+    background-image: url(images/Cabañam.jpeg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50%;
+}
+
+.general-3 {
+    background-image: url(images/CabañaP.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50%;
+}
+
+h2 {
+    font-size: 55px;
+    line-height: 70px;
+    color: #323337;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+
+}
+
+p {
+    font-size: 16px;
+    color: #414247;
+    margin: 25px 0 45px 0;
+
+}
+
+.opinion {
+    padding: 100px 0;
+    text-align: center;
+
+}
+.opinion-content {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.opinion-1 {
+    padding: 15px 55px;
+
+}
+
+.opinion-1 img {
+    width: 250px;
+    border-radius: 15px;
+    border-bottom: 15px;
+
+}
+
+.opinion-1 h3 {
+    font-size: 25px;
+    color: #323337;
+
+}
+
+.link h3 {
+    font-size: 18px;
+    color: #F9FAFC;
+    margin-bottom: 15px;
+
+}
+.link a {
+    font-size: 16px;
+    color: #C5C5C5;
+    display: block;
+    margin-bottom: 15px;
+
+    
+}

@@ -8,6 +8,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/cabanas')
+def cabanas():
+    return render_template('cabanas.html')
+
 @app.route('/cabins')
 def cabins():
 # Hacer la solicitud GET a la API del backend para obtener los datos
