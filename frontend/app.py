@@ -1,7 +1,7 @@
 # frontend/app.py
 from flask import Flask, render_template,request
 import requests
-
+import urllib
 app = Flask(__name__)
 
 @app.route('/')
@@ -52,9 +52,12 @@ def habitacion(id):
     else:
         return "Error al obtener los datos del backend"
 
-@app.route('/reservar')
+@app.route('/reservar', methods=['GET'])
 def reservar():
-    return render_template('reservar.html')
+    data = request.args.get('data')
+    cabin_id = request.args.get('id')
+    data = eval(data)
+    return render_template('reservar.html', data=data, id=cabin_id)
 
 @app.route('/filtered_cabins', methods=['POST'])
 def filtered_cabins():
@@ -68,7 +71,12 @@ def filtered_cabins():
         return "Error al obtener los datos del backend"
 
     filtered_cabins = filtered_cabins.json()
-    return render_template('filtered_cabins.html', filtered_cabins=filtered_cabins)
+    data = {
+        "fecha_salida": fecha_salida,
+        "fecha_entrada": fecha_entrada,
+        "cantidad_personas":cantidad_personas
+    }
+    return render_template('filtered_cabins.html', filtered_cabins=filtered_cabins, data=data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
