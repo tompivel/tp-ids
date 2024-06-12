@@ -56,5 +56,19 @@ def habitacion(id):
 def reservar():
     return render_template('reservar.html')
 
+@app.route('/filtered_cabins', methods=['POST'])
+def filtered_cabins():
+    fecha_entrada = request.form['fechaIngreso']
+    fecha_salida = request.form['fechaSalida']
+    cantidad_personas = request.form['personas']
+
+    filtered_cabins = requests.get(f'http://backend:5001/filter_cabins?fechaIngreso={fecha_entrada}&fechaSalida={fecha_salida}&personas={cantidad_personas}')
+
+    if filtered_cabins.status_code != 200:
+        return "Error al obtener los datos del backend"
+
+    filtered_cabins = filtered_cabins.json()
+    return render_template('filtered_cabins.html', filtered_cabins=filtered_cabins)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

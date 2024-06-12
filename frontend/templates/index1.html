@@ -19,7 +19,7 @@
         </div>   
 	<div class ="container">
 	    <div class="container mt-3 mb-5 d-flex flex-column align-items-center justify-content-center">
-		    <form>
+		    <form method="POST" action="{{ url_for('filtered_cabins') }}">
 			<div class="row mb-3">
 			    <div class="col-md-4 fechIngreso">
 				<label for="fechaIngreso" class="form-label">Fecha de Ingreso</label>
@@ -37,7 +37,7 @@
 				</div>
 			    </div>
 			    <div class="w-100 d-flex justify-content-center align-items-center">
-				<button type="button" class="button-reservar">Reservar</button>
+				<button type="submit" class="button-reservar" >Reservar</button>
 			    </div>
 			</div>
 		    </form>
