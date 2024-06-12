@@ -8,16 +8,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+# class Cabins(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     nombre = db.Column(db.String(255))
+#     descripcion = db.Column(db.Text)
+#     imagen = db.Column(db.Text)
+
 class Cabins(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(255))
-    descripcion = db.Column(db.Text)
-    imagen = db.Column(db.Text)
-
-class Habitaciones(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    cabin_id = db.Column(db.Integer, db.ForeignKey('cabins.id'))
+    #cabin_id = db.Column(db.Integer, db.ForeignKey('cabins.id'))
     nombre = db.Column(db.String(255), nullable=False)
+    capacidad = db.Column(db.Integer)
     descripcion = db.Column(db.Text)
     precio = db.Column(db.Numeric(10,2))
     imagen = db.Column(db.Text)
@@ -35,16 +36,62 @@ def after_request(response):
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response
 
+# @app.route('/cabins')
+# def get_all_cabins():
+#     cabins = Cabins.query.all()
+# 
+#     results = []
+#     for cabin in cabins:
+#         result = {
+#             'id': cabin.id,
+#             'nombre': cabin.nombre,
+#             'descripcion': cabin.descripcion,
+#             'imagen': cabin.imagen
+#         }
+#         results.append(result)
+# 
+#     return jsonify(results)
+# 
+# @app.route('/cabins/<int:id>')
+# def get_cabin(id):
+#     cabin = Cabins.query.get(id)
+# 
+#     if cabin is None:
+#         return jsonify({'error': 'La cabaña no se ha encontrado'}), 404
+# 
+#     result = {
+#         'id': cabin.id,
+#         'nombre': cabin.nombre,
+#         'descripcion': cabin.descripcion,
+#         'imagen': cabin.imagen
+#     }
+# 
+#     return jsonify(result)
+
 @app.route('/cabins')
-def get_all_cabins():
-    cabins = Cabins.query.all()
+def get_cabins():
+    min_precio = request.args.get('min_precio', default=None, type=float)
+    max_precio = request.args.get('max_precio', default=None, type=float)
+
+    query = Cabins.query
+
+    if min_precio is not None:
+        query = query.filter(Cabins.precio >= min_precio)
+
+    if max_precio is not None:
+        query = query.filter(Cabins.precio <= max_precio)
+
+    cabins = query.all()
 
     results = []
     for cabin in cabins:
         result = {
             'id': cabin.id,
+            # 'cabin_id': cabin.cabin_id,
             'nombre': cabin.nombre,
+            'capacidad': cabin.capacidad,
             'descripcion': cabin.descripcion,
+            'precio': str(cabin.precio),
             'imagen': cabin.imagen
         }
         results.append(result)
@@ -52,7 +99,7 @@ def get_all_cabins():
     return jsonify(results)
 
 @app.route('/cabins/<int:id>')
-def get_cabin(id):
+def get_room(id):
     cabin = Cabins.query.get(id)
 
     if cabin is None:
@@ -61,62 +108,80 @@ def get_cabin(id):
     result = {
         'id': cabin.id,
         'nombre': cabin.nombre,
+        'capacidad': cabin.capacidad,
         'descripcion': cabin.descripcion,
+        'precio': str(cabin.precio),
         'imagen': cabin.imagen
     }
 
     return jsonify(result)
 
-@app.route('/habitaciones')
-def get_rooms():
-    cabin_id = request.args.get('cabin_id', default=None, type=int)
-    min_precio = request.args.get('min_precio', default=None, type=float)
-    max_precio = request.args.get('max_precio', default=None, type=float)
+@app.route('/create_cabin', methods=['POST'])
+def create_cabin():
+    try:
+        dataCabin = request.json
+        if dataCabin is None:
+                return jsonify({"error": "No JSON data found"}), 400
+        cabin = Cabins()
+        cabin.nombre = dataCabin['nombre']
+        cabin.capacidad=dataCabin['capacidad']
+        cabin.descripcion = dataCabin['descripcion']
+        cabin.precio = dataCabin['precio']
+        cabin.imagen = dataCabin['imagen']
+        db.session.add(cabin)
+        db.session.commit()
+        return jsonify({"message": "Cabaña agregada con exito", "data": dataCabin}), 200
+    
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/delete_cabin', methods=['DELETE'])
+def delete_cabin():
+    try:
+        nameCabin = request.json
+        if nameCabin is None:
+            return jsonify({"error": "No JSON data found"}), 400
+        nombre = nameCabin['nombre']
+        cabin = Cabins.query.filter_by(nombre=nombre).first()
+        db.session.delete(cabin)
+        db.session.commit()
+        return jsonify({"message": "Cabaña eliminada con éxito", "Nombre de cabaña": nombre}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-    query = Habitaciones.query
+@app.route('/update_cabin', methods=['PUT'])
+def update_cabin():
+    try:
+        data = request.json
+        if data is None:
+            return jsonify({"error": "No JSON data found"}), 400
 
-    if cabin_id is not None:
-        query = query.filter(Habitaciones.cabin_id == cabin_id)
+        nombre = data['nombre']
+        modificarCampos =  data['modificarCampos']
+        modificarValores = data['modificarValores']
+        cabin = Cabins.query.filter_by(nombre=nombre).first()
+        
+        if cabin is None:
+            return jsonify({"error": "Cabaña no encontrada"}), 404
+        for index, campo in enumerate(modificarCampos):
+            if(campo == 'nombre'):
+                cabin.nombre = modificarValores[index]
+            elif(campo == 'capacidad'):
+                cabin.capacidad = modificarValores[index]
+            elif(campo == 'descripcion'):
+                cabin.descripcion = modificarValores[index]
+            elif(campo == 'precio'):
+                cabin.precio = modificarValores[index]
+            elif(campo == 'imagen'):
+                cabin.imagen = modificarValores[index]
+            else:
+                return jsonify({"error": "Campo no valido"}), 400
 
-    if min_precio is not None:
-        query = query.filter(Habitaciones.precio >= min_precio)
+        db.session.commit()
+        return jsonify({"message": "Parámetros actualizados con éxito","Cabaña modificada": nombre, "Parámetros_actualizados": modificarCampos, "Nuevos parámetros": modificarValores}), 200
 
-    if max_precio is not None:
-        query = query.filter(Habitaciones.precio <= max_precio)
-
-    habitaciones = query.all()
-
-    results = []
-    for habitacion in habitaciones:
-        result = {
-            'id': habitacion.id,
-            'cabin_id': habitacion.cabin_id,
-            'nombre': habitacion.nombre,
-            'descripcion': habitacion.descripcion,
-            'precio': str(habitacion.precio),
-            'imagen': habitacion.imagen
-        }
-        results.append(result)
-
-    return jsonify(results)
-
-@app.route('/habitaciones/<int:id>')
-def get_room(id):
-    habitacion = Habitaciones.query.get(id)
-
-    if habitacion is None:
-        return jsonify({'error': 'La habitacion no se ha encontrado'}), 404
-
-    result = {
-        'id': habitacion.id,
-        'cabin_id': habitacion.cabin_id,
-        'nombre': habitacion.nombre,
-        'descripcion': habitacion.descripcion,
-        'precio': str(habitacion.precio),
-        'imagen': habitacion.imagen
-    }
-
-    return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/reservas', methods=['POST'])
 def create_reserva():
