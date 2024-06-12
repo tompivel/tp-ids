@@ -1,5 +1,5 @@
 # frontend/app.py
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,url_for
 import requests
 
 app = Flask(__name__)
@@ -52,8 +52,10 @@ def habitacion(id):
     else:
         return "Error al obtener los datos del backend"
 
-@app.route('/reservar')
+@app.route('/reservar',methods=["GET","POST"])
 def reservar():
+    if request.method == "POST":
+        return render_template('confirmada.html')
     return render_template('reservar.html')
 
 if __name__ == '__main__':
