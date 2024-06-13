@@ -44,15 +44,48 @@
 
   }
   .btn-primary{
-  background-color: #91652c;
-  border: solid;
-  border-color: #805a29;
+    background-color: #91652c;
+    position: relative;
+    border: none;
+    height: 40px;
+    width: 30%;
+    border-color: #805a29;
+    transition: all 1.3s ease;
   }
   .btn-primary:hover{
-    background-color: #6e4d22;
-    border-color: transparent;
+    background-color: rgba(163,121,66,1.0);
+    border-radius: 0;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(155,155,155,1.0);
+  }
+  .btn-primary::before,.btn-primary::after{
+    content:'';
+    position:absolute;
+    top:0px;
+    right:0;
+    margin:auto;
+    height:2px;
+    width:0;
+    background:#4c2e06;
+    transition:400ms ease all;
+  }
+  .btn-primary::after{
+	right:inherit;
+	top:inherit;
+	left:0;
+	bottom:0;
+  }
+  .btn-primary:hover::before,.btn-primary:hover::after{
+	width:100%;
+	transition:800ms ease all;
   }
   .btn-primary:active{
-    background-color: transparent !important;
-    border: solid #6e4d22 !important;
+    background: linear-gradient(135deg,
+				rgba(163,121,66,0.6) 0%,
+				rgba(43,58,53, 0.6) 40%,
+				rgba(163,121,66,0.6)) !important;
+  }
+  .btn-primary:active::before,.btn-primary:active::after{
+    transition:300ms ease all;
+    background:rgba(76,46,6,0.3);
   }
