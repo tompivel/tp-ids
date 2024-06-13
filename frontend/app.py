@@ -56,7 +56,7 @@ def habitacion(id):
 def reservar():
     if request.method == "POST":
         return render_template('confirmada.html')
-    return render_template('reservar.html')
+    return render_template('reservar.html',numero=17)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
