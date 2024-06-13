@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index1.html')
+    return render_template('index1.html',section = 'reservar')
 
 @app.route('/cabins')
 def cabins():
