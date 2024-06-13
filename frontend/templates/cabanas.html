@@ -14,10 +14,11 @@
                 <div class="general-1">
                     <h2>{{ cabin.nombre }}</h2>
                     <p>
-                        •{{ cabin.descripcion }}<br>
+                        {{ cabin.descripcion }}<br>
                     </p>
 <!--                    <a href="{{ url_for('cabin', id=cabin.id ) }}" class="btn-1">Informacion</a> -->
-                    <img src="{{ url_for( cabin.imagen ) }}" class="btn-1">Informacion</a>
+                    <img src="{{ cabin.imagen }}" class="btn-1">
+		    <a>Informacion</a>
                 </div>
                 <div class="general-2"></div>
 
