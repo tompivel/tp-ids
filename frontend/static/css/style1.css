@@ -62,22 +62,55 @@ header form label{
 }
 
 header .button-reservar{
+    position: relative;
     margin: 30px 0 0 0;
     width: 30%;
+
+    /*background: linear-gradient(270deg, #9B290B, #041707);*/
+
     background-color: #91652c;
-    border: solid;
-    border-color: #805a29;
+    border: none;
     height: 55px;
     border-radius: 8px;
     color: white;
+    transition: all 1.3s ease;
+    font-weight: bold;
 }
 header .button-reservar:hover{
-    background-color: #6e4d22;
-    border-color: transparent;
+    background-color: rgba(163,121,66,1.0);
+    border-radius: 0;
+    transform: scale(1.1);
+}
+header .button-reservar::before,header .button-reservar::after{
+    content:'';
+    position:absolute;
+    top:0px;
+    right:0;
+    margin:auto;
+    height:2px;
+    width:0;
+    background:#4c2e06;
+    transition:400ms ease all;
+}
+header .button-reservar::after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+header .button-reservar:hover::before,header .button-reservar:hover::after{
+    width:100%;
+    transition:800ms ease all;
 }
 header .button-reservar:active{
-    background-color: transparent;
-    border: solid #6e4d22;
+    background: linear-gradient(135deg,
+				rgba(163,121,66,0.6) 0%,
+				rgba(100,127,108, 0.6) 40%,
+				rgba(163,121,66,0.6));
+}
+header .button-reservar:active::before,header .button-reservar:active::after{
+    transition:300ms ease all;
+    background:rgba(76,46,6,0.3);
 }
 
 
