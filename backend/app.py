@@ -8,15 +8,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# class Cabins(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     nombre = db.Column(db.String(255))
-#     descripcion = db.Column(db.Text)
-#     imagen = db.Column(db.Text)
-
 class Cabins(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    #cabin_id = db.Column(db.Integer, db.ForeignKey('cabins.id'))
     nombre = db.Column(db.String(255), nullable=False)
     capacidad = db.Column(db.Integer)
     descripcion = db.Column(db.Text)
@@ -36,37 +29,6 @@ def after_request(response):
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response
 
-# @app.route('/cabins')
-# def get_all_cabins():
-#     cabins = Cabins.query.all()
-# 
-#     results = []
-#     for cabin in cabins:
-#         result = {
-#             'id': cabin.id,
-#             'nombre': cabin.nombre,
-#             'descripcion': cabin.descripcion,
-#             'imagen': cabin.imagen
-#         }
-#         results.append(result)
-# 
-#     return jsonify(results)
-# 
-# @app.route('/cabins/<int:id>')
-# def get_cabin(id):
-#     cabin = Cabins.query.get(id)
-# 
-#     if cabin is None:
-#         return jsonify({'error': 'La cabaña no se ha encontrado'}), 404
-# 
-#     result = {
-#         'id': cabin.id,
-#         'nombre': cabin.nombre,
-#         'descripcion': cabin.descripcion,
-#         'imagen': cabin.imagen
-#     }
-# 
-#     return jsonify(result)
 
 @app.route('/cabins')
 def get_cabins():
@@ -87,7 +49,6 @@ def get_cabins():
     for cabin in cabins:
         result = {
             'id': cabin.id,
-            # 'cabin_id': cabin.cabin_id,
             'nombre': cabin.nombre,
             'capacidad': cabin.capacidad,
             'descripcion': cabin.descripcion,
