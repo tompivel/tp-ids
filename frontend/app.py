@@ -1,7 +1,7 @@
 # frontend/app.py
 from flask import Flask, render_template,request
 import requests
-
+import urllib
 app = Flask(__name__)
 
 @app.route('/')
@@ -31,9 +31,31 @@ def cabin(id):
         return "Error al obtener los datos del backend"
 
 
-@app.route('/reservar')
+@app.route('/reservar', methods=['GET'])
 def reservar():
-    return render_template('reservar.html')
+    data = request.args.get('data')
+    cabin_id = request.args.get('id')
+    data = eval(data)
+    return render_template('reservar.html', data=data, id=cabin_id)
+
+@app.route('/filtered_cabins', methods=['POST'])
+def filtered_cabins():
+    fecha_entrada = request.form['fechaIngreso']
+    fecha_salida = request.form['fechaSalida']
+    cantidad_personas = request.form['personas']
+
+    filtered_cabins = requests.get(f'http://backend:5001/filter_cabins?fechaIngreso={fecha_entrada}&fechaSalida={fecha_salida}&personas={cantidad_personas}')
+
+    if filtered_cabins.status_code != 200:
+        return "Error al obtener los datos del backend"
+
+    filtered_cabins = filtered_cabins.json()
+    data = {
+        "fecha_salida": fecha_salida,
+        "fecha_entrada": fecha_entrada,
+        "cantidad_personas":cantidad_personas
+    }
+    return render_template('filtered_cabins.html', filtered_cabins=filtered_cabins, data=data)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

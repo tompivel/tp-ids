@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///test.db?charset=utf8mb4')
@@ -28,6 +29,10 @@ class Reservas(db.Model):
 def after_request(response):
     response.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response
+
+
+
+
 
 
 @app.route('/cabins')
@@ -187,5 +192,48 @@ def delete_reserva(id):
     db.session.commit()
     return jsonify({'message': 'Reserva deleted'})
 
+@app.route('/filter_cabins', methods=['GET'])
+def filter_search():
+    fecha_ingreso = request.args.get('fechaIngreso')
+    fecha_salida = request.args.get('fechaSalida')
+    capacidad = request.args.get('personas')
+
+    if not fecha_ingreso or not fecha_salida or not capacidad:
+        return jsonify({'error': 'Missing parameters'}), 400
+
+    try:
+        fecha_ingreso = datetime.strptime(fecha_ingreso, '%Y-%m-%d').date()
+        fecha_salida = datetime.strptime(fecha_salida, '%Y-%m-%d').date()
+        capacidad = int(capacidad)
+    except ValueError:
+        return jsonify({'error': 'Invalid parameters'}), 400
+
+    # Obtener habitaciones con la capacidad requerida
+    cabins= Cabins.query.filter(Cabins.capacidad >= capacidad).all()
+
+    # Filtrar habitaciones no disponibles en el rango de fechas
+    available_cabins = []
+    for cabin in cabins:
+        reservas = Reservas.query.filter(
+            Reservas.cabin_id == cabin.id,
+            Reservas.fecha_salida > fecha_ingreso,
+            Reservas.fecha_ingreso < fecha_salida
+        ).all()
+        if not reservas:
+            available_cabins.append(cabin)
+
+    # Convertir a diccionario para la respuesta JSON
+    resultado = [
+        {
+            'id': cabin.id,
+            'nombre': cabin.nombre,
+            'capacidad': cabin.capacidad,
+            'descripcion': cabin.descripcion,
+            'precio': cabin.precio,
+            'imagen': cabin.imagen
+        } for cabin in available_cabins
+    ]
+
+    return jsonify(resultado), 200  
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
