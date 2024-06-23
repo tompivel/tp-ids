@@ -130,14 +130,14 @@ def create_cabin():
 @app.route('/delete_cabin', methods=['DELETE'])
 def delete_cabin():
     try:
-        nameCabin = request.json
-        if nameCabin is None:
+        idCabin = request.json
+        if idCabin is None:
             return jsonify({"error": "No JSON data found"}), 400
-        nombre = nameCabin['nombre']
-        cabin = Cabins.query.filter_by(nombre=nombre).first()
+        idd = idCabin['id']
+        cabin = Cabins.query.get(idd)
         db.session.delete(cabin)
         db.session.commit()
-        return jsonify({"message": "Cabaña eliminada con éxito", "Nombre de cabaña": nombre}), 200
+        return jsonify({"message": "Cabaña eliminada con éxito", "ID de cabaña": idd}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
