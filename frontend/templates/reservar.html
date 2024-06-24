@@ -35,15 +35,16 @@
                 <ul class="list-group mb-3">
                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                         <div>
-                            <h6 class="my-0">Cabaña 2</h6>
-                            <small class="text-muted">Descripción General <br>5 Noches - 5 Días <br>Wifi <br> Desayuno
-                                completo</small>
+                            <h6 class="my-0">{{ cabin.nombre }}</h6>
+                            <small class="text-muted">Descripción: {{ cabin.descripcion }} <br>Capacidad: {{
+                                cabin.capacidad }}
+                                personas</small>
                         </div>
-                        <span class="text-muted">$2.000.000</span>
+                        <span class="text-muted">${{ cabin.precio }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total ($ARS)</span>
-                        <strong>$2.000.000</strong>
+                        <strong>${{ cabin.precio }}</strong>
                     </li>
                 </ul>
             </div>
