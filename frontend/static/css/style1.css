@@ -268,36 +268,23 @@ select.form-select{
     margin-left: auto;
     margin-right: auto;
 }
-#titulo_selec{
+#titulo_reservas{
+    height: 250px;
+}
+#formulario_reserva{
+    width: 900px;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
+}
+
+#check{
+    height: 200px;
     width: 200px;
-    color: red;
-    font-size: large
-}
-section.cabaña#reservar{
-    height: 150px;
-    padding-top: 15px;
-}
-#calendario{
-    display: flex;
-    width: 200px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-#titulo-campo{
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    width: 400px;
-    align-items: center;
-    justify-content: space-between;
 }
 
-
-
-
-
-
+#check_div{
+    padding-top: 10px;
+}
+footer{
+    height: 300px;
+}
