@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -18,17 +19,111 @@ body {
 }
 
 .header {
-    background: linear-gradient(
-        rgba(0, 0, 0, 0.7),
-        rgba(0, 0, 0, 0.7)),
+    background: linear-gradient(rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)),
         url(/static/images/cab.jpg) center bottom no-repeat;
     background-size: cover;
-    min-height: 80vh;
     display: flex;
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
 }
 
-#titulo_reservas{
+#personas {
+    -moz-appeareance: textfiel;
+    width: 80%;
+    margin: 0;
+}
+
+#personas::-webkit-outer-spin-button,
+#personas::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+header form .capacidad div {
+    background-color: white;
+    padding: 0;
+    border-radius: 0.375rem;
+}
+
+header form .capacidad div span {
+    margin: 0 10px 0 0;
+    font-size: 1.4rem
+}
+
+header form .capacidad div input {
+    border-color: transparent;
+}
+
+
+header form label {
+    color: white;
+    font-weight: bold;
+}
+
+header .button-reservar {
+    position: relative;
+    margin: 30px 0 0 0;
+    width: 30%;
+
+    /*background: linear-gradient(270deg, #9B290B, #041707);*/
+
+    background-color: #91652c;
+    border: none;
+    height: 55px;
+    border-radius: 8px;
+    color: white;
+    transition: all 1.3s ease;
+    font-weight: bold;
+}
+
+header .button-reservar:hover {
+    background-color: rgba(163, 121, 66, 1.0);
+    border-radius: 0;
+    transform: scale(1.1);
+}
+
+header .button-reservar::before,
+header .button-reservar::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0;
+    margin: auto;
+    height: 2px;
+    width: 0;
+    background: #4c2e06;
+    transition: 400ms ease all;
+}
+
+header .button-reservar::after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+}
+
+header .button-reservar:hover::before,
+header .button-reservar:hover::after {
+    width: 100%;
+    transition: 800ms ease all;
+}
+
+header .button-reservar:active {
+    background: linear-gradient(135deg,
+            rgba(163, 121, 66, 0.6) 0%,
+            rgba(100, 127, 108, 0.6) 40%,
+            rgba(163, 121, 66, 0.6));
+}
+
+header .button-reservar:active::before,
+header .button-reservar:active::after {
+    transition: 300ms ease all;
+    background: rgba(76, 46, 6, 0.3);
+}
+
+
+#titulo_reservas {
     min-height: 30vh;
 }
 
@@ -61,6 +156,7 @@ body {
     text-transform: uppercase;
 
 }
+
 .btn-1:hover {
     background-color: #ebad8d;
 }
@@ -120,9 +216,8 @@ body {
 }
 
 .services {
-    background-image: linear-gradient(
-        rgba(0, 0, 0, 0.7),
-        rgba(0, 0, 0, 0.7)),
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)),
         url(/static/images/Servicio.jpg);
     background-position: center center;
     background-repeat: no-repeat;
@@ -148,7 +243,7 @@ body {
 
 .services-content p {
     font-size: 16px;
-    color:  #C5C5C5;
+    color: #C5C5C5;
     margin-bottom: 50px;
     padding: 0 100px;
 
@@ -203,6 +298,14 @@ body {
     width: 50%;
 }
 
+.general-4 {
+    background-image: url("https://static.wixstatic.com/media/3ffa1d_35ac4f6b1fa245858e61e527bbc011b0~mv2.jpg/v1/fill/w_1199,h_800,al_c/3ffa1d_35ac4f6b1fa245858e61e527bbc011b0~mv2.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50%;
+}
+
 h2 {
     font-size: 55px;
     line-height: 70px;
@@ -224,6 +327,7 @@ p {
     text-align: center;
 
 }
+
 .opinion-content {
     display: flex;
     justify-content: space-between;
@@ -254,15 +358,17 @@ p {
     margin-bottom: 15px;
 
 }
+
 .link a {
     font-size: 16px;
     color: #C5C5C5;
     display: block;
     margin-bottom: 15px;
 
-    
+
 }
-select.form-select{
+
+select.form-select {
     display: flex;
     width: 200px;
     margin-left: auto;
@@ -280,20 +386,47 @@ select.form-select{
 #check{
     height: 200px;
     width: 200px;
+    color: red;
+    font-size: large
+}
+
+section.cabaña#reservar {
+    height: 300px;
+    padding-top: 15px;
+}
+
+#calendario {
+    display: flex;
+    width: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+#titulo-campo{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #check_div{
     padding-top: 10px;
 }
+
 #formulario_reserva{
     width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
 
+.cabaña-1 img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    padding-bottom: 10px;
+}
 footer{
     height: 300px;
 }
-
-
-
