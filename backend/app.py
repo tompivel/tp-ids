@@ -185,11 +185,38 @@ def update_cabin():
 
 @app.route('/reservas', methods=['POST'])
 def create_reserva():
-    data = request.get_json()
-    reserva = Reservas(cabin_id=data['cabin_id'], nombre=data['nombre'], cantidad_personas=data['cantidad_personas'], fecha_ingreso=data['fecha_ingreso'], fecha_salida=data['fecha_salida'])
+    cabin_id = request.form.get('cabin_id')
+    nombre = request.form.get('nombre')
+    cantidad_personas = request.form.get('cantidad_personas')
+    fecha_ingreso = request.form.get('fecha_ingreso')
+    fecha_salida = request.form.get('fecha_salida')
+
+    reserva = Reservas(
+        cabin_id=cabin_id,
+        nombre=nombre,
+        cantidad_personas=cantidad_personas,
+        fecha_ingreso=fecha_ingreso,
+        fecha_salida=fecha_salida
+    )
     db.session.add(reserva)
     db.session.commit()
     return jsonify({'message': 'Reserva created'}), 201
+
+@app.route('/reservas', methods=['GET'])
+def get_all_reservas():
+    reservas = Reservas.query.all()
+    results = []
+    for reserva in reservas:
+        result = {
+            'id': reserva.id,
+            'cabin_id': reserva.cabin_id,
+            'nombre': reserva.nombre,
+            'cantidad_personas': reserva.cantidad_personas,
+            'fecha_ingreso': str(reserva.fecha_ingreso),
+            'fecha_salida': str(reserva.fecha_salida)
+        }
+        results.append(result)
+    return jsonify(results)
 
 @app.route('/reservas/<int:id>', methods=['GET'])
 def get_reserva(id):

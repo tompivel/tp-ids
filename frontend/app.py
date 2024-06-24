@@ -55,8 +55,22 @@ def habitacion(id):
 @app.route('/reservar',methods=["GET","POST"])
 def reservar():
     if request.method == "POST":
-        return render_template('confirmada.html')
+        data = request.form
+        response = requests.post('http://backend:5001/reservas', data=data)
+        if response.status_code == 200:
+            return render_template('confirmada.html')
+        else:
+            return "Error al hacer la reserva"
     return render_template('reservar.html',numero=17)
+
+@app.route('/listar_reservas')
+def listar_reservas():
+    response = requests.get('http://backend:5001/reservas')
+    if response.status_code == 200:
+        reservas = response.json()
+        return render_template('lista_reservas.html', reservas=reservas)
+    else:
+        return "Error al obtener los datos del backend"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

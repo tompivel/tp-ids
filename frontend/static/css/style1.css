@@ -285,6 +285,15 @@ select.form-select{
 #check_div{
     padding-top: 10px;
 }
+#formulario_reserva{
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 footer{
     height: 300px;
 }
+
+
+
