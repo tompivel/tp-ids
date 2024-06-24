@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% block title %}Home - Refugio de los Andes{% endblock %}
+<<<<<<< HEAD
 {% block styles %}
+=======
+{% block head %}
+>>>>>>> 7186f41 (28 - Extensión de base.html)
 <link rel="stylesheet" href="{{url_for('static',filename='/css/style1.css')}}">
 {% endblock %}
 
     {% block header %}
     <header class="header pt-5">
-        <div class="header-content container">
+        <div class="header-content container" id="reserva-cliente">
             <h1>Refugio de los Andes</h1>
             <p> Te invitamos al Refugio de los Andes donde podrás descansar, desconectarte de la rutina y disfrutar de
                 nuestras
@@ -50,6 +54,8 @@
         </div>          
     </header>
     </div>
+    {% endblock %}
+    {% block body %}
     <section class="cabaña">
         <img class="cabaña-img" src="/static/images/bg2.png" alt="">
         <div class="cabaña-content container">
@@ -130,7 +136,7 @@
         </div>
     </main>
 
-    <section class="general">
+    <section class="general" id="brief-info">
 
         <div class="general-1">
             <h2>Cabaña Superior Marrón</h2>
@@ -190,7 +196,7 @@
         <div class="general-4"></div>
     </section>
 
-    <section class="opinion container">
+    <section class="opinion container" id="reviews">
         <h2>Opiniones de nuestros clientes</h2>
         <div class="opinion-content">
             <div class="opinion-1">
@@ -225,10 +231,4 @@
             </div>
         </div>
     </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+    {% endblock %}
