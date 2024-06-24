@@ -14,14 +14,11 @@
             <h1>RESERVAR CABAÑA</h1>
             <a href="{{url_for('index')}}"><button class="btn-1">Volver a HOME</button></a>
         </div>
-
     </header>
-
-
     <div class="py-5 text-center cabaña">
         <img class="d-block mx-auto mb-4" src="{{url_for('static',filename='images/cabana.png')}}" alt="" width="72"
             height="72">
-        <h2>Formulario de Reservación</h2>
+        <h2>Formulario de Reserva</h2>
         <p class="lead" id="formulario_reserva">Completa con tus datos personales para poder confirmar la reserva.
             Recuerda revisar en el
             carrito de compra que tu solicitud tenga el producto que deseas junto a todas sus características.
@@ -49,13 +46,12 @@
                         <strong>$2.000.000</strong>
                     </li>
                 </ul>
-
             </div>
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos de Facturación</h4>
                 <form class="needs-validation" novalidate="" action="{{url_for('reservar')}}" method="post">
-                    <input type="date" name="ingreso" value="{{ingreso}}">
-                    <input type="date" name="egreso" value="{{ingreso}}" hidden>
+                    <input type="date" name="ingreso" value="{{data.fecha_entrada}}" hidden>
+                    <input type="date" name="egreso" value="{{data.fecha_salida}}" hidden>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Nombre</label>

@@ -30,14 +30,6 @@ def cabin(id):
     else:
         return "Error al obtener los datos del backend"
 
-
-@app.route('/reservar', methods=['GET'])
-def reservar():
-    data = request.args.get('data')
-    cabin_id = request.args.get('id')
-    data = eval(data)
-    return render_template('reservar.html', data=data, id=cabin_id)
-
 @app.route('/filtered_cabins', methods=['POST'])
 def filtered_cabins():
     fecha_entrada = request.form['fechaIngreso']
@@ -57,6 +49,13 @@ def filtered_cabins():
     }
     return render_template('filtered_cabins.html', filtered_cabins=filtered_cabins, data=data)
 
+""" @app.route('/reservar', methods=['GET'])
+def reservar():
+    data = request.args.get('data')
+    cabin_id = request.args.get('id')
+    data = eval(data)
+    return render_template('reservar.html', data=data, id=cabin_id)
+
 @app.route('/reservar',methods=["GET","POST"])
 def reservar():
     if request.method == "POST":
@@ -66,7 +65,24 @@ def reservar():
             return render_template('confirmada.html')
         else:
             return "Error al hacer la reserva"
-    return render_template('reservar.html',numero=17)
+    return render_template('reservar.html',numero=17) """
+
+@app.route('/reservar', methods=['GET', 'POST'])
+def reservar():
+    if request.method == 'POST':
+        data = request.form
+        response = requests.post('http://backend:5001/reservas', data=data)
+        if response.status_code == 200:
+            return render_template('confirmada.html')
+        else:
+            return "Error al hacer la reserva"
+    else:
+        data = request.args.get('data')
+        cabin_id = request.args.get('id')
+        if data:
+            data = eval(data)
+            return render_template('reservar.html', data=data, id=cabin_id)
+        return render_template('reservar.html')
 
 @app.route('/listar_reservas')
 def listar_reservas():
