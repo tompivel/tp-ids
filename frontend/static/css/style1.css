@@ -402,13 +402,9 @@ section.cabaña#reservar {
     margin-left: auto;
     margin-right: auto;
 }
-#titulo-campo{
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    width: 400px;
-    align-items: center;
-    justify-content: space-between;
+
+#titulo_reservas{
+    padding-top: 30px;
 }
 
 #check_div{
