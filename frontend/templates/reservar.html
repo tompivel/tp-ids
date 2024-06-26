@@ -51,56 +51,59 @@
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">Datos Personales</h4>
                 <form class="needs-validation" novalidate="" action="{{url_for('reservar')}}" method="post">
-                    <input type="date" name="ingreso" value="{{data.fecha_entrada}}" hidden>
-                    <input type="date" name="egreso" value="{{data.fecha_salida}}" hidden>
+                    <input type="date" name="fecha_ingreso" value="{{data.fecha_entrada}}" hidden>
+                    <input type="date" name="fecha_salida" value="{{data.fecha_salida}}" hidden>
+                    <input type="number" name="cantidad_personas" value="{{data.cantidad_personas}}" hidden>
+                    <input type="number" name="cabin_id" value="{{cabin.id}}" hidden>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Nombre</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="" required="">
+                            <input type="text" class="form-control" name="nombre" id="firstName" placeholder=""
+                                required="">
                             <div class="invalid-feedback">
                                 Se requiere un nombre válido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Apellido</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="" required="">
+                            <input type="text" class="form-control" name="apellido" id="lastName" placeholder=""
+                                required="">
                             <div class="invalid-feedback">
                                 Se requiere un apellido válido.
                             </div>
                         </div>
                     </div>
-
                     <div class="mb-3">
                         <label for="username">Documento</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">DNI</span>
                             </div>
-                            <input type="text" class="form-control" id="username" placeholder="12345678" required="">
+                            <input type="text" class="form-control" name="documento" id="username"
+                                placeholder="12345678" required="">
                             <div class="invalid-feedback" style="width: 100%;">
                                 Es necesario que ingreses tu DNI
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="fcelular">Celular</label>
-                            <input type="text" class="form-control" id="fcelular1" placeholder="+54 9 11 12345678" required="">
+                            <input type="text" class="form-control" name="celular" id="fcelular1"
+                                placeholder="+54 9 11 12345678" required="">
                             <div class="invalid-feedback">
                                 Se requiere un celular válido.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required="">
+                            <input type="email" class="form-control" name="email" id="email"
+                                placeholder="nombre@ejemplo.com" required="">
                             <div class="invalid-feedback">
                                 Se requiere una dirección de correo electrónico válida.
                             </div>
                         </div>
                     </div>
-
-
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="save-info">
                         <label class="custom-control-label" for="save-info">Quiero recibir novedades y promociones a mi
