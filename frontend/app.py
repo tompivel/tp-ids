@@ -54,7 +54,7 @@ def reservar():
     if request.method == 'POST':
         data = request.form
         response = requests.post('http://backend:5001/reservas', data=data)
-        if response.status_code == 200:
+        if response.status_code == 200 or response.status_code == 201:
             return render_template('confirmada.html')
         else:
             return "Error al hacer la reserva"
