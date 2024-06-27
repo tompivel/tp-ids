@@ -21,7 +21,10 @@
           <img class="d-block mx-auto mb-4" src="{{url_for('static',filename='images/cabana.png')}}" alt="" width="72"
         height="72">
           <h2>CABAÑAS DISPONIBLES</h2>
-          <p class="lead text-body-secondary">Estas son las cabañas que se coinciden con tu solicitud. Presiona en una de ellas para reservarla o vuelve atrás para cambiar tu solicitud</p>
+          <p class="lead text-body-secondary">Estas son las cabañas que se coinciden con tu solicitud. Presiona en una de ellas para reservarla o vuelve atrás para cambiar tu solicitud <br>
+            <small>(Los precios que figuran son por noche)</small>
+          </p>
+          
           <p class="btn-paragraph d-flex justify-content-center align-items-center">
             <a href="{{ url_for('index') }}" class="btn btn-primary my-2 d-flex justify-content-center align-items-center">Cambiar reserva</a>
           </p>
@@ -45,7 +48,7 @@
                     <a href="{{ url_for('reservar', data=data, id=cabin.id) }}"><button type="button" class="btn btn-sm btn-outline-secondary">Reservar</button></a>
                   </div>
                   <div class=" precio">
-                    <span class="badge text-bg-light">${{ cabin.precio|float|round|int }}</span>
+                    <span class=" text-bg-light strong h5">${{ cabin.precio|float|round|int }}</span>
                   </div>
                   <small class="text-body-secondary d-flex">{{ cabin.capacidad }}<i class="bi bi-person"></i></small>
                 </div>

@@ -70,8 +70,9 @@ def reservar():
             data = eval(data)
             fecha_salida = datetime.strptime(data['fecha_salida'], '%Y-%m-%d')
             fecha_entrada = datetime.strptime(data['fecha_entrada'], '%Y-%m-%d')
-            precioTotal = float(cabin['precio']) * (fecha_salida - fecha_entrada).days
-            return render_template('reservar.html', data=data, cabin=cabin, precioTotal=precioTotal)
+            noches = (fecha_salida - fecha_entrada).days
+            precioTotal = float(cabin['precio']) * noches
+            return render_template('reservar.html', data=data, cabin=cabin, precioTotal=precioTotal, noches=noches)
         return render_template('reservar.html')
 
 @app.route('/listar_reservas')
