@@ -1,5 +1,6 @@
 # frontend/app.py
 from flask import Flask, render_template,request,url_for
+from datetime import datetime
 import requests
 import urllib
 app = Flask(__name__)
@@ -67,7 +68,10 @@ def reservar():
         cabin = response.json()
         if data:
             data = eval(data)
-            return render_template('reservar.html', data=data, cabin=cabin)
+            fecha_salida = datetime.strptime(data['fecha_salida'], '%Y-%m-%d')
+            fecha_entrada = datetime.strptime(data['fecha_entrada'], '%Y-%m-%d')
+            precioTotal = float(cabin['precio']) * (fecha_salida - fecha_entrada).days
+            return render_template('reservar.html', data=data, cabin=cabin, precioTotal=precioTotal)
         return render_template('reservar.html')
 
 @app.route('/listar_reservas')
